@@ -1,0 +1,82 @@
+<div class="row">
+    
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>User details</strong>
+        </div>
+        <div class="card-body"  >
+            <div class="form-group">
+              <label for="city">First Name</label>
+              <input type="text" class="form-control" id="firstName" autocomplete="off" placeholder="First Name" [(ngModel)]="user.otherName" name="firstName" required>
+            </div>
+            <div class="form-group">
+              <label for="postal-code">Last Name</label>
+              <input type="text" class="form-control" id="lastName" autocomplete="off" placeholder="Last Name" [(ngModel)]="user.lastName" name="lastName" required>
+            </div>
+          <div class="form-group">
+            <label for="company">Username</label>
+            <input type="text" class="form-control" id="username" autocomplete="off" placeholder="username001" [(ngModel)]="user.userName" name="userName" required>
+          </div>
+          <div class="form-group">
+            <label for="vat">Email</label>
+            <input type="text" class="form-control" id="userEmail" autocomplete="off" placeholder="example@example.com" [(ngModel)]="user.userEmail" name="userEmail" required>
+          </div>         
+            <div class="form-group">
+            <label for="street">Phone Number</label>
+            <input type="text" class="form-control" id="userGroup" autocomplete="off" placeholder="07xxxxxxxx"  [(ngModel)]="user.userPhoneNo" name="userPhoneNo" required>
+          
+          </div><!--/.row-->
+        </div>
+      </div>
+    </div><!--/.col-->
+
+
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Assign group Rights</strong>
+        </div>
+        <div class="card-body">
+        <div class="form-group">
+            <label for="vat">Branch</label>
+            <input type="text" class="form-control" id="userEmail" autocomplete="off" placeholder="Town/City" [(ngModel)]="user.userBranch" name="userBranch" required>
+          </div> 
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group" styele="position:absolute;">
+                <label for="userGroup">User Group &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <select (change)="filterForeCasts($event.target.value)">
+                    <option value="0">{{user.userGroupId}}</option>
+                    <option *ngFor="let i of userGroupsFromServer" value={{i}}>
+                      {{i}}
+                    </option>
+                  </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="userMenus">User Rights</label>
+        <div class="row">
+          <div *ngFor = "let i of displayedRights">
+            <div class="col-sm col-form-label">
+              <div class="form-check form-check-inline mr-1">
+                <input class="form-check-input" type="checkbox" id="inline-checkbox1" value={{i.code}} [checked]="i.checked" (change)="buildArray($event)" >
+                <label class="form-check-label" for="inline-checkbox1">{{i.description}}</label>
+                <br>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        <div class="row">
+          <div class="col-6">
+            <button style="background-color:#2570E0; border:none !important" type="button" class="btn btn-primary px-4" (click)="updateDetails()" *ngIf="1==1" routerLink="/users/view">Update Details</button>
+          </div>
+        </div>
+    </div>
+  </div>

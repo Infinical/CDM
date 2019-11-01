@@ -1,0 +1,69 @@
+<div class="row">
+
+  <div class="col-sm">
+    <div class="card">
+      <div class="card-header">
+        <strong>Existing CDMs</strong>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>CDM</th>
+          <th>Created By</th>
+          <th>Created date</th>
+          <th>Description</th>
+          <th>Terminal Name</th>
+          <th>Serial No</th>
+          <th>Terminal ID</th>
+          <th>action</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let machine of allCdmMachines">
+        <tr>
+          <td>{{machine.cdm}}</td>
+          <td>{{machine.createdBy}}</td>
+          <td>{{machine.createdDate}}</td>
+          <td>{{machine.description}}</td>
+          <td>{{machine.terminalName}}</td>
+          <td>{{machine.terminalId}}</td>
+          <td>{{machine.serialNo}}</td>
+          <td>
+            <button type="button" (click)="onSelected(machine)" routerLink="/cdm/update">
+              <span class="cuis-comment-bubble-edit">Active</span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+      </div>
+    </div>
+  </div>
+    
+  <div class="col-sm">
+    <div class="card">
+      <div class="card-header">
+        <strong>CDM Information</strong>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label for="city">CDM Serial No</label>
+          <input type="text" class="form-control" id="cdmSerialNo" autocomplete="off" placeholder="CDM Serial No" [(ngModel)]="cdmMachine.serialNo" name="firstName" required>
+        </div>
+        <div class="form-group">
+          <label for="postal-code">Description</label>
+          <input type="text" class="form-control" id="description" autocomplete="off" placeholder="CDM Description" [(ngModel)]="cdmMachine.description" name="lastName" required>
+        </div>
+        <div class="form-group">
+          <label for="company">Terminal Name</label>
+          <input type="text" class="form-control" id="terminalName" autocomplete="off" placeholder="Terminal Name" [(ngModel)]="cdmMachine.terminalName" name="userName" required>
+        </div>
+        <div class="form-group">
+          <label for="vat">Terminal ID</label>
+          <input type="text" class="form-control" id="teminalId" autocomplete="off" placeholder="Terminal ID" [(ngModel)]="cdmMachine.terminalId" name="userEmail" required>
+        </div>   
+      </div>
+    </div>
+    <button style="background-color:#2570E0; border:none !important" type="button" class="btn btn-primary px-4" (click)="createMachine()">Create Machine</button>
+  </div>
+</div>

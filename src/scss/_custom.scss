@@ -1,0 +1,12 @@
+// Here you can add other styles
+
+@import '~ngx-toastr/toastr';
+
+.sidebar {
+    background-image: linear-gradient( blue, black) !important;
+}
+
+tbody {
+    // font-size: 90%;
+    width: auto;
+}
