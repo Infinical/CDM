@@ -1,6 +1,7 @@
 // Angular
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { UpdateUserGroupComponent } from './update_group.component';
 import { NewUserGroupComponent } from './new_group.component';
@@ -13,7 +14,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ThemeRoutingModule,
-    FormsModule
+    FormsModule,
+    NgxSpinnerModule
   ],
   declarations: [
     UpdateUserGroupComponent,

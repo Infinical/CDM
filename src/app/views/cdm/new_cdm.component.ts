@@ -20,7 +20,7 @@ export class NewCdmComponent implements OnInit, OnDestroy {
   lastIndex = 4;
   elementsToShow = 5;
 
-  cdmMachine: CDM = new CDM('', '', '', '', '');
+  cdmMachine: CDM = new CDM('', '', '', '', '', '');
 
   allCdmMachines: ListCDM[] = [];
 

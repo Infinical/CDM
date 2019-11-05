@@ -112,5 +112,17 @@ export const defaultNavItems: NavData[] = [
         //   icon: 'icon-note'
         // },
     ]
+  },
+  {
+    name: 'Vendors',
+    url: 'vendors',
+    icon: 'icon-user',
+    children: [
+      {
+          name: 'New Vendor',
+          url: '/vendors/new',
+          icon: 'icon-star'
+        }
+    ]
   }
 ];

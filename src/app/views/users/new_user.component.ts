@@ -7,6 +7,7 @@ import { UserServices } from '../../services/register-users.service';
 import { AccessMenusFromServer } from '../../models/accessMenusFromServer';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   templateUrl: 'new_user.component.html'
@@ -15,7 +16,7 @@ export class NewUserComponent implements OnInit, OnDestroy {
 
 // Create User component
 
-
+  proceed: boolean = true;
   user: User = new User('', '', '', '', '', '', '', '', '', '', '', []);
   access: AccessMenu = new AccessMenu('');
   private message: any;
@@ -28,7 +29,8 @@ export class NewUserComponent implements OnInit, OnDestroy {
   cacheForecasts: string = '';
 
   private inputAccepted: boolean = false;
-  constructor(private service: UserServices, private router: Router, private toastr: ToastrService) { }
+  constructor(private service: UserServices, private router: Router, private toastr: ToastrService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit ( ) {
     this.getRights();
@@ -76,13 +78,18 @@ export class NewUserComponent implements OnInit, OnDestroy {
   }
 
   public createUser() {
-    this.setupPayload();
+    this.validation();
+    if (this.proceed) {
+      this.setupPayload();
       this.service.registerUsers(this.user).
         subscribe((response: any) => {
           this.message = response.responseMessage;
+          this.inputAccepted = response.responseCode === '00';
+            this.spinner.hide();
             this.showToaster();
         }
       );
+    }
   }
 
   filterForeCasts(value: any) {
@@ -107,6 +114,45 @@ export class NewUserComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
+  }
+
+  validation() {
+    if (this.user.lastName.trim() === '') {
+      this.toastr.warning('Last Name cannot be empty');
+      this.proceed = false;
+      return;
+    }
+    if (this.user.otherName.trim() === '') {
+      this.toastr.warning('First Name cannot be empty');
+      this.proceed = false;
+      return;
+    }
+    if (this.user.userEmail.trim() === '') {
+      this.toastr.warning('Email name cannot be empty');
+      this.proceed = false;
+      return;
+    }
+    if (this.user.userName.trim() === '') {
+      this.toastr.warning('Username cannot be empty');
+      this.proceed = false;
+      return;
+    }
+    if (this.user.userPhoneNo.trim() === '') {
+      this.toastr.warning('Phone Number cannot be empty');
+      this.proceed = false;
+      return;
+    }
+    if (this.user.userBranch.trim() === '') {
+      this.toastr.warning('Branch cannot be empty');
+      this.proceed = false;
+      return;
+    }
+    if (this.user.userGroupId === 'select user group') {
+      this.toastr.warning('Please select user group');
+      this.proceed = false;
+      return;
+    }
+    this.proceed = true;
   }
 
 }

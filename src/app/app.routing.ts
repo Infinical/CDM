@@ -74,6 +74,10 @@ export const routes: Routes = [
       {
         path: 'setup',
         loadChildren: () => import('./views/setup/setup.module').then(m => m.ThemeModule)
+      },
+      {
+        path: 'vendors',
+        loadChildren: () => import('./views/vendors/vendors.module').then(m => m.VendorsModule)
       }
     ]
   },

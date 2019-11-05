@@ -7,6 +7,7 @@ import { UpdateUserGroup } from '../../models/updateUserGroup';
 import { AccessMenusFromServer } from '../../models/accessMenusFromServer';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   templateUrl: 'edit_user.component.html'
@@ -26,7 +27,8 @@ export class EditUserComponent implements OnInit {
   rightsForThisUser: string[] = [];
   displayedRights: AccessMenusFromServer[] = [];
 
-  constructor(private service: UserServices, private router: Router, private toastr: ToastrService) { }
+  constructor(private service: UserServices, private router: Router, private toastr: ToastrService,
+    private spinner: NgxSpinnerService) { }
 
   isCollapsed: boolean = false;
 
@@ -34,12 +36,8 @@ export class EditUserComponent implements OnInit {
     this.getThisUserDetails();
     this.getRights();
     this.getUserGroups();
-    // this.setupComboBox();
     this.setupComboBox();
     this.chosen = this.rightsForThisUser;
-    console.log(this.user);
-    console.log(this.displayedRights);
-    console.log(this.rightsForThisUser);
   }
 
   buildArray(event): void {
@@ -74,6 +72,12 @@ export class EditUserComponent implements OnInit {
   }
 
   updateDetails() {
+
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 5000);
+
     for (let i  in this.chosen) {
       this.user.rightsList.push(new AccessMenu(this.chosen[i]));
     }
@@ -135,6 +139,7 @@ export class EditUserComponent implements OnInit {
 
   switchRoute () {
     this.router.navigateByUrl('/users/view');
+    this.spinner.hide();
   }
 
 

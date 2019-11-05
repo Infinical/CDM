@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EditCdmComponent implements OnInit {
 
-  cdmMachine: CDM = new CDM('', '', '', '', '');
+  cdmMachine: CDM = new CDM('', '', '', '', '', '');
   private paramOk: boolean =  false;
   private message: string = '';
 

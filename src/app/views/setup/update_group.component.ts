@@ -8,6 +8,7 @@ import { UserServices } from '../../services/register-users.service';
 import { UserGroupPayload } from '../../models/userGroupPayload';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   templateUrl: 'update_group.component.html'
@@ -32,7 +33,8 @@ export class UpdateUserGroupComponent implements OnInit {
   menusForGroup: UpdateUserGroup[] = [];
 
   constructor(@Inject(DOCUMENT) private _document: any,
-  private service: UserServices, private toastr: ToastrService, private router: Router) {}
+  private service: UserServices, private toastr: ToastrService, private router: Router,
+  private spinner: NgxSpinnerService) {}
 
 
   ngOnInit(): void {
@@ -89,10 +91,15 @@ export class UpdateUserGroupComponent implements OnInit {
   }
 
   updateGroup() {
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 5000);
     this.service.updateUser(this.reqPayload).subscribe(
       (response: any) => {
         this.message = response.responseMessage;
         this.paramOk = response.responseCode === '00';
+        this.spinner.hide();
         this.showToaster();
     });
   }

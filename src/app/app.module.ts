@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -80,6 +81,7 @@ const appRoutes: Routes = [
     NgxPaginationModule,
     ToastrModule.forRoot(),
     ParticlesModule,
+    NgxSpinnerModule
     // JwtModule.forRoot({})
   ],
   declarations: [
