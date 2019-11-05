@@ -25,6 +25,8 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 
+// import { JwtModule } from '@auth0/angular-jwt';
+
 const APP_CONTAINERS = [
   DefaultLayoutComponent
 ];
@@ -45,6 +47,9 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
+
+import { ParticlesModule } from 'angular-particle';
+
 import { TokenInterceptor } from './interceptors/access-token.inteceptor';
 import { AuthInterceptor } from './interceptors/send-token.interceptor';
 import { HttpErrorInterceptor } from './interceptors/timeout-token.interceptor';
@@ -73,7 +78,9 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     NgxPaginationModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ParticlesModule,
+    // JwtModule.forRoot({})
   ],
   declarations: [
     AppComponent,

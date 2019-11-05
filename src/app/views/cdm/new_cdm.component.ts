@@ -16,12 +16,18 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NewCdmComponent implements OnInit, OnDestroy {
 
-  cdmMachine: CDM = new CDM('', '', '', '');
+  startIndex = 0;
+  lastIndex = 4;
+  elementsToShow = 5;
+
+  cdmMachine: CDM = new CDM('', '', '', '', '');
 
   allCdmMachines: ListCDM[] = [];
 
   paramOk: boolean = false;
   message: string = '';
+
+  proceed: boolean = true;
 
   constructor(sanitizer: DomSanitizer, private service: CDMServices, private router: Router, private toastr: ToastrService) {  }
 
@@ -36,13 +42,16 @@ export class NewCdmComponent implements OnInit, OnDestroy {
   }
 
   createMachine() {
-    this.service.createMachine(this.cdmMachine).subscribe(
-      (response: any) => {
-        this.paramOk = response.responseCode === '00';
-        this.message = response.responseMessage;
-        this.showToaster();
-      }
-    );
+    this.validation();
+    if (this.proceed  === true ) {
+      this.service.createMachine(this.cdmMachine).subscribe(
+        (response: any) => {
+          this.paramOk = response.responseCode === '00';
+          this.message = response.responseMessage;
+          this.showToaster();
+        }
+      );
+    }
   }
 
   onSelected(object) {
@@ -50,6 +59,7 @@ export class NewCdmComponent implements OnInit, OnDestroy {
     sessionStorage.setItem('cdmDescription', object.description);
     sessionStorage.setItem('cdmTerminalName', object.terminalName);
     sessionStorage.setItem('cdmTerminalId', object.terminalId);
+    sessionStorage.setItem('cdmVendor', object.vendor);
   }
 
   viewmachines() {
@@ -57,7 +67,7 @@ export class NewCdmComponent implements OnInit, OnDestroy {
       (response: any) => {
         response.listData.forEach( (element) => {
           this.allCdmMachines.push(new ListCDM(element.cdm, element.createdBy, element.createdDate,
-            element.description, element.terminalName, element.serialNo, element.terminalId));
+            element.description, element.terminalName, element.serialNo, element.terminalId, element.vendor));
         });
       }
     );
@@ -72,6 +82,45 @@ export class NewCdmComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  validation() {
+    if (this.cdmMachine.serialNo.trim() === '') {
+      this.toastr.warning('Serial No cannot be empty');
+      this.proceed = false;
+      return;
+    }
+    if (this.cdmMachine.description.trim() === '') {
+      this.toastr.warning('Description cannot be empty');
+      this.proceed = false;
+      return;
+    }
+    if (this.cdmMachine.terminalName.trim() === '') {
+      this.toastr.warning('Terminal name cannot be empty');
+      this.proceed = false;
+      return;
+    }
+    if (this.cdmMachine.terminalId.trim() === '') {
+      this.toastr.warning('Terminal ID cannot be empty');
+      this.proceed = false;
+      return;
+    }
+    if (this.cdmMachine.vendor.trim() === '') {
+      this.toastr.warning('Vendor cannot be empty');
+      this.proceed = false;
+      return;
+    }
+    this.proceed = true;
+  }
+
+  getArrayFromANumber(length) {
+    console.log(length);
+    return new Array(length / this.elementsToShow);
+  }
+
+  updateIndex(pageIndex) {
+    this.startIndex = pageIndex * this.elementsToShow;
+    this.lastIndex = this.startIndex + this.elementsToShow;
+  }
 
 
 }

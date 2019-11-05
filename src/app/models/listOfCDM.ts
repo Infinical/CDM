@@ -6,6 +6,7 @@ export class ListCDM {
     terminalName: string;
     serialNo: string;
     terminalId: string;
+    vendor: string;
     constructor(
         cdm: string,
         createdBy: string,
@@ -13,7 +14,8 @@ export class ListCDM {
         description: string,
         terminalName: string,
         serialNo: string,
-        terminalId: string
+        terminalId: string,
+        vendor: string
     ) {
         this.cdm = cdm;
         this.createdBy = createdBy;
@@ -22,5 +24,6 @@ export class ListCDM {
         this.terminalName = terminalName;
         this.terminalId = terminalId;
         this.serialNo = serialNo;
+        this.vendor = vendor;
     }
 }

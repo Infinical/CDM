@@ -29,7 +29,7 @@ export interface NavData {
   wrapper?: NavWrapper;
 }
 
-export const navItems: NavData[] = [
+export const defaultNavItems: NavData[] = [
   {
     name: 'Dashboard',
     url: '/dashboard',
@@ -48,12 +48,12 @@ export const navItems: NavData[] = [
         name: 'New User Group',
         url: '/setup/new',
         icon: 'icon-star'
-      },
-      {
-        name: 'Edit User Group',
-        url: '/setup/update',
-        icon: 'icon-note'
       }
+      // {
+      //   name: 'Edit User Group',
+      //   url: '/setup/update',
+      //   icon: 'icon-note'
+      // }
     ]
   },
 
@@ -67,11 +67,11 @@ export const navItems: NavData[] = [
         url: '/users/register',
         icon: 'icon-star'
       },
-      {
-        name: 'Edit User',
-        url: '/users/update',
-        icon: 'icon-note'
-      },
+      // {
+      //   name: 'Edit User',
+      //   url: '/users/update',
+      //   icon: 'icon-note'
+      // },
       {
         name: 'List of Users',
         url: '/users/view',
@@ -88,12 +88,12 @@ export const navItems: NavData[] = [
           name: 'New CDM',
           url: '/cdm/new',
           icon: 'icon-star'
-        },
-        {
-          name: 'Edit CDM',
-          url: '/cdm/update',
-          icon: 'icon-note'
-        },
+        }
+        // {
+        //   name: 'Edit CDM',
+        //   url: '/cdm/update',
+        //   icon: 'icon-note'
+        // },
     ]
   },
   {
@@ -105,12 +105,12 @@ export const navItems: NavData[] = [
           name: 'New Report',
           url: '/cdm/new',
           icon: 'icon-star'
-        },
-        {
-          name: 'View Report',
-          url: '/cdm/update',
-          icon: 'icon-note'
-        },
+        }
+        // {
+        //   name: 'View Report',
+        //   url: '/cdm/update',
+        //   icon: 'icon-note'
+        // },
     ]
   }
 ];

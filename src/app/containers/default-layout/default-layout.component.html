@@ -1,6 +1,6 @@
 <app-header
   [navbarBrandRouterLink]="['/dashboard']"
-  [fixed]="true"
+  [fixed]="false"
   [navbarBrandFull]="{src: 'assets/img/brand/image2vector.svg', width: 100, height: 45, alt: 'Stanbic Logo'}"
   [navbarBrandMinimized]="{src: 'assets/img/brand/image2vector.svg', width: 30, height: 30, alt: 'Stanbic Bank'}"
   [sidebarToggler]="'lg'">
@@ -20,7 +20,7 @@
         <div class="dropdown-header text-center"><strong>Settings</strong></div>
         <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
         <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>-->
-        <a class="dropdown-item" href=""><i class="fa fa-lock"></i> Logout</a>
+        <a class="dropdown-item" href="/login"><i class="fa fa-lock"></i> Logout</a>
       </div>
     </li>
   </ul>
@@ -37,18 +37,6 @@
       <li class="breadcrumb-menu d-md-down-none">
       </li>
     </cui-breadcrumb>
-    <!-- deprecation warning for 'app-breadcrumb' -->
-    <!--<ol class="breadcrumb">-->
-      <!--<app-breadcrumb></app-breadcrumb>-->
-      <!--&lt;!&ndash; Breadcrumb Menu&ndash;&gt;-->
-      <!--<li class="breadcrumb-menu d-md-down-none">-->
-        <!--<div class="btn-group" role="group" aria-label="Button group with nested dropdown">-->
-          <!--<a class="btn" href="#"><i class="icon-speech"></i></a>-->
-          <!--<a class="btn" [routerLink]="['/dashboard']"><i class="icon-graph"></i> &nbsp;Dashboard</a>-->
-          <!--<a class="btn" href="#"><i class="icon-settings"></i> &nbsp;Settings</a>-->
-        <!--</div>-->
-      <!--</li>-->
-    <!--</ol>-->
     <div class="container-fluid">
       <router-outlet></router-outlet>
     </div>

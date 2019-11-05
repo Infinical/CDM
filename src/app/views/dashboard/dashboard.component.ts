@@ -219,15 +219,15 @@ export class DashboardComponent implements OnInit {
   public mainChartData: Array<any> = [
     {
       data: this.mainChartData1,
-      label: 'Current'
+      label: 'All CDM Registered'
     },
     {
       data: this.mainChartData2,
-      label: 'Previous'
+      label: 'This time last year'
     },
     {
       data: this.mainChartData3,
-      label: 'BEP'
+      label: 'Baseline'
     }
   ];
   /* tslint:disable:max-line-length */

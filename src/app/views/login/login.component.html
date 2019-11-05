@@ -1,40 +1,45 @@
-<div>
-<img src="assets/CFC_Stanbic_bank.png" alt="Logo" style="width:30%; opacity: 0.3">
+<div class="jumbotron"> 
+<particles [style]="style" [width]="width" [height]="height" [params]="params"></particles>
+<div class="container-particles">
+  <div>
+  <img src="assets/Group 1633.png" alt="Logo" style="width: 30%;">
 </div>
-<div class="app-body">
-  <main class="main d-flex align-items-center">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 mx-auto">
-          <div class="card-group">
-            <div class="card p-4">
-              <div class="card-body">
-                <form>
-                  <h1>Login</h1>
-                  <p class="text-muted">Sign In to your account</p>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="icon-user"></i></span>
+  <div class="app-body"> 
+    <main class="main d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-5 mx-auto">          
+            <div class="card-group">
+              <div class="card p-4">
+                <div class="card-body">
+                  <form>
+                    <h1>Login</h1>
+                    <p class="text-muted">Sign In to your account</p>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-user"></i></span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="NTKEN Number" autocomplete="username" [(ngModel)]="username" name="username" required>
                     </div>
-                    <input type="text" class="form-control" placeholder="NTKEN Number" autocomplete="username" [(ngModel)]="username" name="username" required>
-                  </div>
-                  <div class="input-group mb-4">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    <div class="input-group mb-4">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-lock"></i></span>
+                      </div>
+                      <input type="password" class="form-control" placeholder="Password" autocomplete="current-password" [(ngModel)]="password" name="password" required>
                     </div>
-                    <input type="password" class="form-control" placeholder="Password" autocomplete="current-password" [(ngModel)]="password" name="password" required>
-                  </div>
-                  <div class="row">
-                    <div class="col-6">
-                      <button style="background-color:#2570E0; border: none !important" type="button" class="btn btn-primary px-4" (click)="loginUsers()">Login</button>
+                    <div class="row">
+                      <div class="col-6">
+                        <button style="background-color:#2570E0; border: none !important" type="button" class="btn btn-primary px-4" (click)="loginUsers()">Login</button>
+                      </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
+</div>  
 </div>

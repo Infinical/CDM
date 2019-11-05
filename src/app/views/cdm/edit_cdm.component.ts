@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EditCdmComponent implements OnInit {
 
-  cdmMachine: CDM = new CDM('', '', '', '');
+  cdmMachine: CDM = new CDM('', '', '', '', '');
   private paramOk: boolean =  false;
   private message: string = '';
 
@@ -20,6 +20,7 @@ export class EditCdmComponent implements OnInit {
     this.cdmMachine.description = sessionStorage.getItem('cdmDescription');
     this.cdmMachine.terminalName = sessionStorage.getItem('cdmTerminalName');
     this.cdmMachine.terminalId = sessionStorage.getItem('cdmTerminalId');
+    this.cdmMachine.vendor = sessionStorage.getItem('cdmVendor');
   }
 
   updateMachine() {

@@ -13,6 +13,8 @@ import { environment } from '../../../environments/environment';
 import { LoginRequestPayload} from '../../models/loginRequestPayload';
 import { AllowedMenus } from '../../models/menusForGroup';
 
+declare var particlesJs: any;
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'login.component.html'
@@ -31,12 +33,40 @@ export class LoginComponent implements OnInit {
 
   allMenus: AllowedMenus[] = [];
 
+  myStyle: object = {};
+  myParams: object = {};
+  width: number = 95;
+  height: number = 95;
 
   constructor(private service: UserServices, private router: Router, private http: HttpClient,
     private toastr: ToastrService) { }
 
   ngOnInit() {
     sessionStorage.clear();
+
+    this.myStyle = {
+      'position': 'fixed',
+      'z-index': -1,
+      'top': 0,
+      'left': 0,
+      'right': 0,
+      'bottom': 0,
+    };
+
+this.myParams = {
+      particles: {
+          number: {
+              value: 70,
+              density: {
+                enable: true,
+                value_area: 800
+              }
+          },
+          shape: {
+              type: 'triangle',
+          },
+  }
+};
   }
 
   loginUsers(): any {
@@ -66,6 +96,7 @@ export class LoginComponent implements OnInit {
 
   allowLogin() {
     if (this.permitLogin) {
+      console.log('called');
       this.router.navigateByUrl('/dashboard');
     }
   }

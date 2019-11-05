@@ -5,6 +5,8 @@ import { UserServices } from '../../services/register-users.service';
 import { AccessMenu } from '../../models/accessMenusModel';
 import { UpdateUserGroup } from '../../models/updateUserGroup';
 import { AccessMenusFromServer } from '../../models/accessMenusFromServer';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   templateUrl: 'edit_user.component.html'
@@ -24,7 +26,7 @@ export class EditUserComponent implements OnInit {
   rightsForThisUser: string[] = [];
   displayedRights: AccessMenusFromServer[] = [];
 
-  constructor(private service: UserServices) { }
+  constructor(private service: UserServices, private router: Router, private toastr: ToastrService) { }
 
   isCollapsed: boolean = false;
 
@@ -75,8 +77,14 @@ export class EditUserComponent implements OnInit {
     for (let i  in this.chosen) {
       this.user.rightsList.push(new AccessMenu(this.chosen[i]));
     }
-    console.log(this.user);
+
     this.service.updateUser(this.user).subscribe((response: any) => {
+      if (response.responseCode === '00') {
+        this.toastr.success(this.message);
+        this.switchRoute();
+      }  else {
+        this.toastr.error(this.message);
+      }
     });
     console.log(this.user);
   }
@@ -92,16 +100,6 @@ export class EditUserComponent implements OnInit {
           });
       });
   }
-
-  // setupComboBox() {
-  //   this.getRights();
-  //   console.log(this.rightsFromServer.length);
-  //   for (let i in this.rightsFromServer) {
-  //     console.log(this.rightsFromServer.length);
-  //     // this.displayedRights.push(new UpdateUserGroup(this.rightsFromServer[i], this.rightsForGroup.includes(this.rightsFromServer[i])));
-  //     console.log('entered');
-  //   }
-  // }
 
 
   setupComboBox() {
@@ -133,6 +131,10 @@ export class EditUserComponent implements OnInit {
     for (let i in this.rightsFromServer) {
       console.log(i);
     }
+  }
+
+  switchRoute () {
+    this.router.navigateByUrl('/users/view');
   }
 
 

@@ -1,14 +1,17 @@
-import { Component, OnDestroy, Inject } from '@angular/core';
+import { Component, OnDestroy, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { navItems } from '../../_nav';
+import { defaultNavItems, NavData } from '../../_nav';
 
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html'
 })
-export class DefaultLayoutComponent implements OnDestroy {
-  public navItems = navItems;
+export class DefaultLayoutComponent implements OnInit, OnDestroy {
+
+  private notAllowed = ['Dashboard', 'Reports'];
+
+  public navItems = defaultNavItems;
   public sidebarMinimized = true;
   private changes: MutationObserver;
   public element: HTMLElement;
@@ -22,6 +25,13 @@ export class DefaultLayoutComponent implements OnDestroy {
       attributes: true,
       attributeFilter: ['class']
     });
+  }
+
+  ngOnInit() {
+    for (const i in this.notAllowed) {
+      this.navItems = this.navItems.filter(item => item.name !== this.notAllowed[i]);
+    }
+
   }
 
   ngOnDestroy(): void {
