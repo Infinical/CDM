@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from 'ng2-charts';
+import { Subscription, interval } from 'rxjs';
 
 @Component({
   templateUrl: 'new_group.component.html'
@@ -25,6 +26,10 @@ export class NewUserGroupComponent implements OnInit {
   private paramOk: boolean = false;
   private message: string = '';
 
+  elementsToShow: number = 5;
+
+  groups_as_string: string[] = [];
+
 
   allMenus: AllowedMenus[] = [];
 
@@ -32,12 +37,14 @@ export class NewUserGroupComponent implements OnInit {
 
   allUserGroups: AllowedMenus[] = [];
 
-  dummy: AllowedMenus[] = [new AllowedMenus('16', 'One'), new AllowedMenus('2', 'Two'), new AllowedMenus('3', 'Three')];
+  dummy: AllowedMenus[] = [new AllowedMenus('16', 'One'), new AllowedMenus('2', 'Two'), new AllowedMenus('3', 'Three'), new AllowedMenus('2', 'Two'), new AllowedMenus('2', 'Two'), new AllowedMenus('2', 'Two')];
 
   groupMenus: AccessMenu [] = [];
   chosen: string[] = [];
 
   proceed: boolean = false;
+
+  private updateSubscription: Subscription;
 
   constructor(private service: UserServices, private toastr: ToastrService, private router: Router,
     private spinner: NgxSpinnerService) { }
@@ -45,6 +52,13 @@ export class NewUserGroupComponent implements OnInit {
   ngOnInit() {
     this.getAllUserGroups();
     this.getMenusForGroup();
+
+
+
+    this.updateSubscription = interval(10000).subscribe(
+      (val) => { this.getAllUserGroups();
+    });
+
     console.log(this.allMenus);
   }
 
@@ -96,6 +110,7 @@ export class NewUserGroupComponent implements OnInit {
       this.service.addMenusForGroup(this.reqPayload).subscribe(
         (response: any) => {
           this.spinner.hide();
+          this.showToaster();
         });
     }
   }
@@ -109,7 +124,10 @@ export class NewUserGroupComponent implements OnInit {
     this.service.getUserGroups(this.reqPayload).subscribe(
       (response: any) => {
         response.list.forEach( (element) => {
-          this.allUserGroups.push(new AllowedMenus(element.code, element.description));
+          if (!this.groups_as_string.includes(element.code)) {
+            this.groups_as_string.push(element.code);
+            this.allUserGroups.push(new AllowedMenus(element.code, element.description));
+          }
         }
       );
     });
@@ -130,6 +148,7 @@ export class NewUserGroupComponent implements OnInit {
       this.proceed = false;
       return;
     }
+    this.proceed = true;
   }
 
 }

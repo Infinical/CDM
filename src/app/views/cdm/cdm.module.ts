@@ -1,28 +1,24 @@
 // Angular
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
-// Alert Component
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { NewCdmComponent } from './new_cdm.component';
 
 import { EditCdmComponent } from './edit_cdm.component';
-
-// Modal Component
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ModalsComponent } from './modals.component';
-
-// Notifications Routing
-import { NotificationsRoutingModule } from './cdm-routing.module';
+import { CDMRoutingModule } from './cdm-routing.module';
 import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
     CommonModule,
-    NotificationsRoutingModule,
+    CDMRoutingModule,
     AlertModule.forRoot(),
     ModalModule.forRoot(),
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   declarations: [
     NewCdmComponent,
@@ -30,4 +26,4 @@ import { FormsModule } from '@angular/forms';
     ModalsComponent
   ]
 })
-export class NotificationsModule { }
+export class CDMModule { }

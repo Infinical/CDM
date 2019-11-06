@@ -64,27 +64,29 @@ export class LoginComponent implements OnInit {
       'bottom': 0,
     };
 
-this.myParams = {
-      particles: {
-          number: {
-              value: 70,
-              density: {
-                enable: true,
-                value_area: 800
-              }
-          },
-          shape: {
-              type: 'triangle',
-          },
-  }
-};
+    this.myParams = {
+          particles: {
+              number: {
+                  value: 70,
+                  density: {
+                    enable: true,
+                    value_area: 800
+                  }
+              },
+              shape: {
+                  type: 'triangle',
+              },
+      }
+    };
   }
 
   loginUsers(): any {
     this.setupPayload();
+
     // this.permitLogin = true;
     // this.allowLogin();
     // this.sendMenus();
+
     this.spinner.show();
     setTimeout(() => {
       this.spinner.hide();
@@ -94,7 +96,9 @@ this.myParams = {
         this.responseCode = response.responseCode;
         this.permitLogin = (response.responseCode === '00');
         this.message = response.responseMessage;
-        this.accessMenus = response.accessMenus;
+        response.accessMenus.forEach( (element) => {
+          this.accessMenus.push(element.description);
+        });
         this.showToaster();
         this.sendMenus();
         this.allowLogin();

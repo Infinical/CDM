@@ -16,6 +16,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NewCdmComponent implements OnInit, OnDestroy {
 
+  dummy: string[] = ['ghjs', 'jhgfd', 'ugveh'];
+
   startIndex = 0;
   lastIndex = 4;
   elementsToShow = 5;

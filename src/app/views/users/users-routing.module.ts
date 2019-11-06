@@ -20,7 +20,7 @@ const routes: Routes = [
         path: 'view',
         component: ViewUsersComponent,
         data: {
-          title: 'Tables'
+          title: 'List of Users'
         }
       },
       {
@@ -45,4 +45,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class BaseRoutingModule {}
+export class UsersRoutingModule {}

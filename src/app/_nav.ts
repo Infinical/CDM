@@ -36,10 +36,6 @@ export const defaultNavItems: NavData[] = [
     icon: 'icon-home'
   },
   {
-    divider: true
-  },
-
-  {
     name: 'System Setup',
     url: '',
     icon: 'icon-grid',

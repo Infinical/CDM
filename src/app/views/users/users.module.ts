@@ -11,18 +11,19 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { EditUserComponent } from './edit_user.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
-import { BaseRoutingModule } from './users-routing.module';
+import { UsersRoutingModule } from './users-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    BaseRoutingModule,
+    UsersRoutingModule,
     BsDropdownModule.forRoot(),
     TabsModule,
     CarouselModule.forRoot(),
@@ -31,7 +32,8 @@ import { BaseRoutingModule } from './users-routing.module';
     PopoverModule.forRoot(),
     ProgressbarModule.forRoot(),
     TooltipModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgxPaginationModule
   ],
   declarations: [
     ViewUsersComponent,
@@ -39,4 +41,4 @@ import { BaseRoutingModule } from './users-routing.module';
     EditUserComponent
   ]
 })
-export class BaseModule { }
+export class UsersModule { }

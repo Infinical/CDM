@@ -40,10 +40,8 @@ import {
   AppSidebarModule,
 } from '@coreui/angular';
 
-// Import routing module
 import { AppRoutingModule } from './app.routing';
 
-// Import 3rd party components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
@@ -57,7 +55,6 @@ import { HttpErrorInterceptor } from './interceptors/timeout-token.interceptor';
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
-  // { path: '', component: HeroListComponent, data: { title: 'Heroes List' }},
   { path: '', redirectTo: '/login',  pathMatch: 'full'},
   { path: '**', component: P404Component }
 ];
@@ -81,7 +78,7 @@ const appRoutes: Routes = [
     NgxPaginationModule,
     ToastrModule.forRoot(),
     ParticlesModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
     // JwtModule.forRoot({})
   ],
   declarations: [

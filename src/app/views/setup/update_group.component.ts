@@ -58,7 +58,9 @@ export class UpdateUserGroupComponent implements OnInit {
           this.menusForGroup.push(new UpdateUserGroup(element.description, this.menus_for_this_group.includes(element.description)));
         }
       );
-      console.log(this.menus_for_this_group.includes('Admin setup'));
+      console.log(this.allMenus);
+      console.log(this.menus_for_this_group);
+      console.log(this.menusForGroup);
     });
   }
 

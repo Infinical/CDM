@@ -4,6 +4,7 @@
 
 .sidebar {
     background-image: linear-gradient( blue, black) !important;
+    position: fixed;
 }
 
 // tbody {
@@ -29,8 +30,18 @@
     margin-bottom: 0;
 }
 
-.table {
-    width: 100%;
+.breadcrumb {
+    // position:fixed;
+    width:100%;
+    background-color: #E4E5E6;
 }
+
+.forms-button {
+    background-color:#2570E0 !important;
+    border:none !important;
+    margin: 1em;
+    width: 30%;
+}
+
 
 

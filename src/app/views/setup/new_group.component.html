@@ -2,37 +2,6 @@
 
   <div class="col-sm-6">
     <div class="card">
-      <div class="card-header">
-        <strong>Existing Groups</strong>
-      </div>
-      <div class="card-body">
-        <table class="table table-striped" >
-          <thead>
-            <tr>
-              <th>Group ID</th>
-              <th>Description</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody *ngFor="let j of allUserGroups">
-            <tr>
-              <td>{{j.code}}</td>
-              <td>{{j.description}}</td>
-              <td>
-                <button type="button" (click)="onSelected(j)" routerLink="/setup/update">
-                <span class="badge badge-success">Active</span>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="col-sm-6">
-    <div class="card">
     <ngx-spinner></ngx-spinner>
       <div class="card-header">
         <strong>Create New Group</strong>
@@ -42,7 +11,7 @@
           <div class="col-sm-12">
             <div class="form-group">
               <label for="userGroup">Group Name</label>
-              <input type="text" class="form-control" id="userGroupName" placeholder="e.g. Marketing Dept" [(ngModel)]="userGroupName" name="userGroupName" required>
+              <input type="text" class="form-control" id="userGroupName" autocomplete="off" placeholder="e.g. Marketing Dept" [(ngModel)]="userGroupName" name="userGroupName" required>
             </div>
           </div>
         </div>
@@ -63,7 +32,37 @@
           </div>
         </div>
       </div>
+      <button type="button" class="btn btn-primary px-4 forms-button" (click)="hitSend()">Add User Group</button>
     </div>
-    <button style="background-color:#2570E0; border:none !important" type="button" class="btn btn-primary px-4" (click)="hitSend()">Add User Group</button>
   </div>
+
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>Existing Groups</strong>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped" >
+          <thead>
+            <tr>
+              <th>Group ID</th>
+              <th>Description</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let group of allUserGroups | paginate: { itemsPerPage: elementsToShow, currentPage: p }" class='clickable-row' (click)="onSelected(group)" routerLink="/setup/update">
+              <td>{{group.code}}</td>
+              <td>{{group.description}}</td>
+              <td>
+                <i class="fa fa-eye"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+
 </div>

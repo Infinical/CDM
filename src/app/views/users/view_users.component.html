@@ -5,7 +5,7 @@
           <strong>List of Users</strong>
         </div>
         <div class="card-body">
-          <table class="table table-responsive" >
+          <table class="table table-striped" >
             <thead>
               <tr>
                 <th>Username</th>
@@ -13,28 +13,23 @@
                 <th>Email</th>
                 <th>Branch</th>
                 <th>User Group ID</th>
-                <th>View</th>
+                <!--<th>View</th>-->
               </tr>
             </thead>
-            <tbody *ngFor="let user of users | slice:startIndex:lastIndex">
-              <tr>
+            <tbody >
+              <tr *ngFor="let user of users | paginate: { itemsPerPage: usersToShow, currentPage: p }" class='clickable-row' (click)="onSelected(user)" routerLink="/users/update">
                 <td>{{user.userName}}</td>
                 <td>{{user.lastName +' '+user.otherName}}</td>
                 <td>{{user.userEmail}}</td>
                 <td>{{user.userBranch}}</td>
-                
                 <td>{{user.userGroupId}}</td>
-                <td>
-                  <button type="button" (click)="onSelected(user)" routerLink="/users/update">
-                    <span class="badge badge-success">Active</span>
-                  </button>
-                </td>
+                <!--<td>
+                <i class="fa fa-eye"></i>
+                </td>-->
               </tr>
             </tbody>
           </table>
-          <ul class="pagination">
-            <li *ngFor="let item of getArrayFromANumber(users.length); let i = index" class="page-item"><a class="page-link" (click)="updateIndex(i)">{{i +1}}</a></li>
-          </ul>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </div>
       </div>
     </div>
