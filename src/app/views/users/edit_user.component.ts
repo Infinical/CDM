@@ -50,8 +50,8 @@ export class EditUserComponent implements OnInit {
   }
 
   getThisUserDetails() {
-    this.service.getUsersByUsername(new User(sessionStorage.getItem('userName'),
-    sessionStorage.getItem('userEmail'), '', '' , '', '', '', '', '', '', '', []))
+    console.log(JSON.parse(sessionStorage.getItem('user')));
+    this.service.getUsersByUsername(JSON.parse(sessionStorage.getItem('user')))
       .subscribe(
         (response: any) => {
           response.listData.forEach( (element) => {
@@ -66,7 +66,6 @@ export class EditUserComponent implements OnInit {
 
           response.listOfRights.forEach( (element) => {
             this.rightsForThisUser.push(element.code);
-            console.log('building rights fror this user');
           });
         });
   }

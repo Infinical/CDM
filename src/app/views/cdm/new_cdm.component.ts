@@ -45,11 +45,12 @@ export class NewCdmComponent implements OnInit, OnDestroy {
 
   createMachine() {
     this.validation();
-    if (this.proceed  === true ) {
+    if (this.proceed) {
       this.service.createMachine(this.cdmMachine).subscribe(
         (response: any) => {
           this.paramOk = response.responseCode === '00';
           this.message = response.responseMessage;
+          this.viewmachines();
           this.showToaster();
         }
       );
@@ -68,8 +69,10 @@ export class NewCdmComponent implements OnInit, OnDestroy {
     this.service.viewMachines(this.cdmMachine).subscribe(
       (response: any) => {
         response.listData.forEach( (element) => {
-          this.allCdmMachines.push(new ListCDM(element.cdm, element.createdBy, element.createdDate,
-            element.description, element.terminalName, element.serialNo, element.terminalId, element.vendor));
+          // if (this.allCdmMachines.indexOf(element) === -1) {
+            this.allCdmMachines.push(new ListCDM(element.cdm, element.createdBy, element.createdDate,
+              element.description, element.terminalName, element.serialNo, element.terminalId, element.vendor));
+          // }
         });
       }
     );
@@ -112,16 +115,6 @@ export class NewCdmComponent implements OnInit, OnDestroy {
       return;
     }
     this.proceed = true;
-  }
-
-  getArrayFromANumber(length) {
-    console.log(length);
-    return new Array(length / this.elementsToShow);
-  }
-
-  updateIndex(pageIndex) {
-    this.startIndex = pageIndex * this.elementsToShow;
-    this.lastIndex = this.startIndex + this.elementsToShow;
   }
 
 

@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from 'ng2-charts';
-import { Subscription, interval } from 'rxjs';
+import { MenusService } from '../../services/menus.service';
 
 @Component({
   templateUrl: 'new_group.component.html'
@@ -37,29 +37,33 @@ export class NewUserGroupComponent implements OnInit {
 
   allUserGroups: AllowedMenus[] = [];
 
-  dummy: AllowedMenus[] = [new AllowedMenus('16', 'One'), new AllowedMenus('2', 'Two'), new AllowedMenus('3', 'Three'), new AllowedMenus('2', 'Two'), new AllowedMenus('2', 'Two'), new AllowedMenus('2', 'Two')];
+  dummy: AllowedMenus[] = [new AllowedMenus('16', 'One'), new AllowedMenus('2', 'Two'),
+  new AllowedMenus('3', 'Three'), new AllowedMenus('2', 'Two'), new AllowedMenus('2', 'Two'),
+  new AllowedMenus('2', 'Two')];
 
   groupMenus: AccessMenu [] = [];
   chosen: string[] = [];
 
   proceed: boolean = false;
 
-  private updateSubscription: Subscription;
-
   constructor(private service: UserServices, private toastr: ToastrService, private router: Router,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService, private menusService: MenusService) { }
 
   ngOnInit() {
     this.getAllUserGroups();
     this.getMenusForGroup();
 
-
-
-    this.updateSubscription = interval(10000).subscribe(
-      (val) => { this.getAllUserGroups();
-    });
-
     console.log(this.allMenus);
+  }
+
+  updateGroupsList () {
+    this.menusService.currentUserGroup
+      .subscribe(userGroup => {
+        if (userGroup !== null && (this.allUserGroups.indexOf(userGroup) !== -1)) {
+          console.log('log this ' + userGroup.description);
+          this.allUserGroups.push(new AllowedMenus(userGroup.code, userGroup.description));
+        }
+      });
   }
 
   setupPayload() {
@@ -98,6 +102,10 @@ export class NewUserGroupComponent implements OnInit {
     }
   }
 
+  sendValue() {
+    this.menusService.sendUserGroups(this.reqPayload);
+  }
+
   hitSend(): any {
     this.validation();
     if (this.proceed) {
@@ -109,7 +117,11 @@ export class NewUserGroupComponent implements OnInit {
       this.setupPayload();
       this.service.addMenusForGroup(this.reqPayload).subscribe(
         (response: any) => {
+          this.sendValue();
+          this.getAllUserGroups();
           this.spinner.hide();
+          this.paramOk = response.responseCode === '00';
+          this.message = response.responseMessage;
           this.showToaster();
         });
     }
@@ -136,7 +148,7 @@ export class NewUserGroupComponent implements OnInit {
   showToaster(): any {
     if (this.paramOk) {
       this.toastr.success(this.message);
-      this.router.navigateByUrl('/dashboard');
+      // this.router.navigateByUrl('/dashboard');
     } else {
       this.toastr.warning(this.message);
     }

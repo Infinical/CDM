@@ -5,7 +5,7 @@ import { UserResponse } from '../../models/userRespFromServer';
 import { UserServices } from '../../services/register-users.service';
 import {NgxPaginationModule} from 'ngx-pagination';
 
-@Component({
+@Component({ 
   templateUrl: 'view_users.component.html'
 })
 export class ViewUsersComponent implements OnInit, OnDestroy {
@@ -53,8 +53,8 @@ export class ViewUsersComponent implements OnInit, OnDestroy {
   }
 
   onSelected(object) {
-    sessionStorage.setItem('userName', object);
-    sessionStorage.setItem('userEmail', object);
+    sessionStorage.setItem('user', JSON.stringify(object));
+    // sessionStorage.setItem('userEmail', object);
   }
 
   getArrayFromANumber(length) {

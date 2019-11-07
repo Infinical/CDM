@@ -10,11 +10,12 @@ import { Observable, throwError } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { Injectable } from "@angular/core";
+import { ToastrService } from 'ngx-toastr';
 
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-    constructor(private router: Router) { }
+    constructor(private router: Router, private toastr: ToastrService) { }
     intercept(
         requests: HttpRequest<any>,
         next: HttpHandler
@@ -40,6 +41,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 if (error.status === 401) {
                     if (error.error.success === false) {
                     } else {
+                        this.toastr.error('Something');
                         this.router.navigate(['/login']);
                         sessionStorage.clear();
                     }

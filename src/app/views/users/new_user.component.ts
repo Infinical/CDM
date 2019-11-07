@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 
+import { MenusService } from '../../services/menus.service';
+
 @Component({
   templateUrl: 'new_user.component.html'
 })
@@ -30,7 +32,7 @@ export class NewUserComponent implements OnInit, OnDestroy {
 
   private inputAccepted: boolean = false;
   constructor(private service: UserServices, private router: Router, private toastr: ToastrService,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService, private menusService: MenusService) { }
 
   ngOnInit ( ) {
     this.getRights();
@@ -40,6 +42,7 @@ export class NewUserComponent implements OnInit, OnDestroy {
   registerNewUsers() {
     this.service.registerUsers(this.user)
       .subscribe((response: any) => this.message = response.responseMessage );
+      this.menusService.sendUser(this.user);
   }
 
   getRights() {
