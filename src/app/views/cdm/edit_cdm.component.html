@@ -6,7 +6,7 @@
       <div class="card-body">
         <div class="form-group">
           <label for="city">CDM Serial No</label>
-          <input type="text" class="form-control" id="cdmSerialNo" autocomplete="off" placeholder="CDM Serial No" [(ngModel)]="cdmMachine.serialNo" name="firstName" required>
+          <input type="text" class="form-control" id="cdmSerialNo" autocomplete="off" placeholder="CDM Serial No" [(ngModel)]="cdmMachine.serialNo" name="firstName" [readonly]="!editable" required>
         </div>
         <div class="form-group">
           <label for="postal-code">Description</label>
@@ -19,7 +19,11 @@
         <div class="form-group">
           <label for="vat">Terminal ID</label>
           <input type="text" class="form-control" id="teminalId" autocomplete="off" placeholder="Terminal ID" [(ngModel)]="cdmMachine.terminalId" name="userEmail" required>
-        </div>   
+        </div>
+        <div class="form-group">
+          <label for="vat">Vendor</label>
+          <input type="text" class="form-control" id="teminalId" autocomplete="off" placeholder="Vendor" [(ngModel)]="cdmMachine.vendor" name="userEmail" required>
+        </div> 
       </div>
     </div>
     <button style="background-color:#2570E0; border:none !important" type="button" class="btn btn-primary px-4" (click)="updateMachine()">Update Machine</button>

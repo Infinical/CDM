@@ -6,6 +6,9 @@ import { AllowedMenus } from '../../models/menusForGroup';
 import { AccessMenu } from '../../models/accessMenusModel';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ThemeService } from 'ng2-charts';
+import { MenusService } from '../../services/menus.service';
 
 @Component({
   templateUrl: 'new_group.component.html'
@@ -23,6 +26,10 @@ export class NewUserGroupComponent implements OnInit {
   private paramOk: boolean = false;
   private message: string = '';
 
+  elementsToShow: number = 5;
+
+  groups_as_string: string[] = [];
+
 
   allMenus: AllowedMenus[] = [];
 
@@ -30,17 +37,33 @@ export class NewUserGroupComponent implements OnInit {
 
   allUserGroups: AllowedMenus[] = [];
 
-  dummy: AllowedMenus[] = [new AllowedMenus('16', 'One'), new AllowedMenus('2', 'Two'), new AllowedMenus('3', 'Three')];
+  dummy: AllowedMenus[] = [new AllowedMenus('16', 'One'), new AllowedMenus('2', 'Two'),
+  new AllowedMenus('3', 'Three'), new AllowedMenus('2', 'Two'), new AllowedMenus('2', 'Two'),
+  new AllowedMenus('2', 'Two')];
 
   groupMenus: AccessMenu [] = [];
   chosen: string[] = [];
 
-  constructor(private service: UserServices, private toastr: ToastrService, private router: Router) { }
+  proceed: boolean = false;
+
+  constructor(private service: UserServices, private toastr: ToastrService, private router: Router,
+    private spinner: NgxSpinnerService, private menusService: MenusService) { }
 
   ngOnInit() {
     this.getAllUserGroups();
     this.getMenusForGroup();
+
     console.log(this.allMenus);
+  }
+
+  updateGroupsList () {
+    this.menusService.currentUserGroup
+      .subscribe(userGroup => {
+        if (userGroup !== null && (this.allUserGroups.indexOf(userGroup) !== -1)) {
+          console.log('log this ' + userGroup.description);
+          this.allUserGroups.push(new AllowedMenus(userGroup.code, userGroup.description));
+        }
+      });
   }
 
   setupPayload() {
@@ -79,12 +102,29 @@ export class NewUserGroupComponent implements OnInit {
     }
   }
 
-  hitSend(): any {
-    this.setupPayload();
-    this.service.addMenusForGroup(this.reqPayload).subscribe(
-      (response: any) => {
+  sendValue() {
+    this.menusService.sendUserGroups(this.reqPayload);
+  }
 
-      });
+  hitSend(): any {
+    this.validation();
+    if (this.proceed) {
+      this.spinner.show();
+
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 5000);
+      this.setupPayload();
+      this.service.addMenusForGroup(this.reqPayload).subscribe(
+        (response: any) => {
+          this.sendValue();
+          this.getAllUserGroups();
+          this.spinner.hide();
+          this.paramOk = response.responseCode === '00';
+          this.message = response.responseMessage;
+          this.showToaster();
+        });
+    }
   }
 
   onSelected(object) {
@@ -96,7 +136,10 @@ export class NewUserGroupComponent implements OnInit {
     this.service.getUserGroups(this.reqPayload).subscribe(
       (response: any) => {
         response.list.forEach( (element) => {
-          this.allUserGroups.push(new AllowedMenus(element.code, element.description));
+          if (!this.groups_as_string.includes(element.code)) {
+            this.groups_as_string.push(element.code);
+            this.allUserGroups.push(new AllowedMenus(element.code, element.description));
+          }
         }
       );
     });
@@ -105,10 +148,19 @@ export class NewUserGroupComponent implements OnInit {
   showToaster(): any {
     if (this.paramOk) {
       this.toastr.success(this.message);
-      this.router.navigateByUrl('/dashboard');
+      // this.router.navigateByUrl('/dashboard');
     } else {
       this.toastr.warning(this.message);
     }
+  }
+
+  validation() {
+    if (this.userGroupName.trim() === '') {
+      this.toastr.warning('Name cannot be empty');
+      this.proceed = false;
+      return;
+    }
+    this.proceed = true;
   }
 
 }

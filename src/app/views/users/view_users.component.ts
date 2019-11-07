@@ -3,36 +3,27 @@ import { Component, OnInit, OnDestroy, Input, ViewEncapsulation } from '@angular
 import { User } from '../../models/user';
 import { UserResponse } from '../../models/userRespFromServer';
 import { UserServices } from '../../services/register-users.service';
+import {NgxPaginationModule} from 'ngx-pagination';
 
-@Component({
+@Component({ 
   templateUrl: 'view_users.component.html'
 })
 export class ViewUsersComponent implements OnInit, OnDestroy {
 
+
+  dummy: string[] = ['hstrbr', 'itrhybfb', 'otvruw', 'lhb bge', '34567', 'nhvcd', 'bgvbnedug', 'bfrtwbv', 'wgfcvbwu'];
   users: UserResponse[] = [];
   users1: any;
 
-
-  dummy: string[] = ['werf', 'werfgvfd', 'ugf', 'jhgvb'];
   reqPayload: string = '';
 
-  private payload: string = sessionStorage.getItem('h-token');
-
-
-  totalItems: number = 30;
-  currentPage: number   = 1;
-  smallnumPages: number = 0;
-
-  // maxSize: number = 5;
-  // bigTotalItems: number = 675;
-  // bigCurrentPage: number = 1;
-  // numPages: number = 0;
-
-  currentPager: number   = 4;
+  startIndex = 0;
+  lastIndex = 4;
+  usersToShow = 4;
+  p: number = 1;
 
 
   constructor(private service: UserServices) { }
-
 
   // "lastName": "string",
   //     "otherName": "string",
@@ -42,6 +33,7 @@ export class ViewUsersComponent implements OnInit, OnDestroy {
   //     "userEmail": "string",
   //     "userPhoneNo": "string",
   //     "frozen_yn": "string"
+
 
 
 
@@ -61,15 +53,18 @@ export class ViewUsersComponent implements OnInit, OnDestroy {
   }
 
   onSelected(object) {
-    sessionStorage.setItem('userName', object.userName);
-    sessionStorage.setItem('userEmail', object.userEmail);
+    sessionStorage.setItem('user', JSON.stringify(object));
+    // sessionStorage.setItem('userEmail', object);
   }
 
-  setPage(pageNo: number): void {
-    this.currentPage = pageNo;
+  getArrayFromANumber(length) {
+    return new Array(length / this.usersToShow);
   }
 
-
+  updateIndex(pageIndex) {
+    this.startIndex = pageIndex * this.usersToShow;
+    this.lastIndex = this.startIndex + this.usersToShow;
+  }
 
   ngOnDestroy() {
   }

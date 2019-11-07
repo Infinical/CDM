@@ -1,49 +1,9 @@
 <div class="row">
 
-  <div class="col-sm">
+  <div class="col-sm-4">
     <div class="card">
       <div class="card-header">
-        <strong>Existing CDMs</strong>
-      </div>
-      <div class="card-body">
-        <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>CDM</th>
-          <th>Created By</th>
-          <th>Created date</th>
-          <th>Description</th>
-          <th>Terminal Name</th>
-          <th>Serial No</th>
-          <th>Terminal ID</th>
-          <th>action</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let machine of allCdmMachines">
-        <tr>
-          <td>{{machine.cdm}}</td>
-          <td>{{machine.createdBy}}</td>
-          <td>{{machine.createdDate}}</td>
-          <td>{{machine.description}}</td>
-          <td>{{machine.terminalName}}</td>
-          <td>{{machine.terminalId}}</td>
-          <td>{{machine.serialNo}}</td>
-          <td>
-            <button type="button" (click)="onSelected(machine)" routerLink="/cdm/update">
-              <span class="cuis-comment-bubble-edit">Active</span>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-      </div>
-    </div>
-  </div>
-    
-  <div class="col-sm">
-    <div class="card">
-      <div class="card-header">
-        <strong>CDM Information</strong>
+        <strong>New CDM Information</strong>
       </div>
       <div class="card-body">
         <div class="form-group">
@@ -61,9 +21,51 @@
         <div class="form-group">
           <label for="vat">Terminal ID</label>
           <input type="text" class="form-control" id="teminalId" autocomplete="off" placeholder="Terminal ID" [(ngModel)]="cdmMachine.terminalId" name="userEmail" required>
-        </div>   
+        </div>
+        <div class="form-group">
+          <label for="vat">Vendor</label>
+          <input type="text" class="form-control" id="vendor" autocomplete="off" placeholder="Vendor" [(ngModel)]="cdmMachine.vendor" name="vendor" required>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary px-4 forms-button" (click)="createMachine()">Create Machine</button>     
+    </div>  
+  </div>
+
+  <div class="col-sm-8">
+    <div class="card">
+      <div class="card-header">
+        <strong>Existing CDMs</strong>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>CDM</th>
+              <th>Serial</th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Created By</th>
+              <th>Created date</th>
+              <th>Vendor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let machine of allCdmMachines | paginate: { itemsPerPage: elementsToShow, currentPage: p }" class="clickable-row" (click)="onSelected(machine)" routerLink="/cdm/update">
+              <td>{{machine.cdm}}</td>
+              <td>{{machine.serialNo}}</td>
+              <td>{{machine.terminalId}}</td>
+              <td>{{machine.terminalName}}</td>
+              <td>{{machine.description}}</td>
+              <td>{{machine.createdBy}}</td>
+              <td>{{machine.createdDate}}</td>
+              <td>{{machine.vendor}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </div>
     </div>
-    <button style="background-color:#2570E0; border:none !important" type="button" class="btn btn-primary px-4" (click)="createMachine()">Create Machine</button>
   </div>
+
 </div>

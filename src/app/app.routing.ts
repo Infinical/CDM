@@ -57,7 +57,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'users',
-        loadChildren: () => import('./views/users/users.module').then(m => m.BaseModule)
+        loadChildren: () => import('./views/users/users.module').then(m => m.UsersModule)
       },
       {
         path: 'charts',
@@ -69,11 +69,15 @@ export const routes: Routes = [
       },
       {
         path: 'cdm',
-        loadChildren: () => import('./views/cdm/cdm.module').then(m => m.NotificationsModule)
+        loadChildren: () => import('./views/cdm/cdm.module').then(m => m.CDMModule)
       },
       {
         path: 'setup',
-        loadChildren: () => import('./views/setup/setup.module').then(m => m.ThemeModule)
+        loadChildren: () => import('./views/setup/setup.module').then(m => m.SetupModule)
+      },
+      {
+        path: 'vendors',
+        loadChildren: () => import('./views/vendors/vendors.module').then(m => m.VendorsModule)
       }
     ]
   },
@@ -81,7 +85,9 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [ RouterModule.forRoot(routes, {
+    onSameUrlNavigation: 'reload'
+  }) ],
   exports: [ RouterModule ]
 })
 export class AppRoutingModule {}

@@ -7,5 +7,10 @@ export const environment = {
   production: false,
   //http://192.168.8.124:8080/api/v1/
   //baseurl: 'http://localhost:3000/customers',
+
+  // dada
   baseurl: 'http://192.168.8.125:8080/cdm/v1/',
+
+  // giktek
+  // baseurl: 'http://192.168.0.163:8080/cdm/v1/',
 };
